@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { GameDataService } from '../../data/game-data.service'
+import { Observable } from 'rxjs';
+import { GameDataService } from '../../data/game-data.service';
+
 
 @Component({
   selector: 'app-quiz',
@@ -8,7 +10,23 @@ import { GameDataService } from '../../data/game-data.service'
 })
 export class QuizComponent implements OnInit {
 
-  constructor(private GameDataService: GameDataService) { }
+  gamesList: Game[] = [];
+
+  constructor(private GameDataService: GameDataService) { 
+
+
+  }
+
+
+  requestGames() {
+    this.GameDataService.getData().subscribe(items => {
+      for(let keys in items) {
+        if(items.hasOwnProperty) {
+          this.gamesList.push(items[keys]);
+        }
+      }
+    })
+  }
 
   ngOnInit() {
   }
