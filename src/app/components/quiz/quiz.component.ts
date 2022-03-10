@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Game } from '../../model/game';
 import { GameDataService } from '../../data/game-data.service';
 
 
@@ -13,7 +14,6 @@ export class QuizComponent implements OnInit {
   gamesList: Game[] = [];
 
   constructor(private GameDataService: GameDataService) { 
-
 
   }
 
