@@ -1,8 +1,12 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable()
 export class GameDataService {
 
-  constructor() { }
+  constructor(private http: HttpClient) {
+    CorrectGame: 
+
+   }
 
 }
