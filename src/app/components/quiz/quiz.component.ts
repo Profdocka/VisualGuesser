@@ -28,6 +28,10 @@ export class QuizComponent implements OnInit {
     })
   }
 
+  printOutGamesList() {
+    console.log(this.gamesList);
+    console.log("cool")
+  }
   ngOnInit() {
   }
 
