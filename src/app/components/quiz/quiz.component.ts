@@ -40,9 +40,11 @@ export class QuizComponent implements OnInit {
     })
   }
 
-  printOutGamesList() {
+  printOut() {
     console.log(this.gamesList);
-    console.log("cool")
+    console.log(this.artwork)
+    let pic = document.getElementById("pic");
+    pic.setAttribute("src", "https://images.igdb.com/igdb/image/upload/t_thumb/arz9r.jpg");
   }
 
   printOutArtwork() {

@@ -20,7 +20,7 @@ export class GameDataService {
     .set('Client-ID', '56pmsmf23lb6a8rn0z6t8vvg47r0a2')
     .set('Authorization', 'Bearer ud22j0xr53lb06mep6au7m8mxcogx3');
   gameParams = new HttpParams().set('fields', 'name').set('search', 'Portal');
-  artworkParams = new HttpParams().set('fields', '*').set('where game =', '434');
+  artworkParams = new HttpParams().set('fields', '*').set('game' , 'where game = 434');
 
   //Sendet eine Request an die Videogame-API und liefert ein Observable zurück
   getData(): Observable<any> {
