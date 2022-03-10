@@ -8,7 +8,7 @@ import { GameDataService } from '../../data/game-data.service'
 })
 export class QuizComponent implements OnInit {
 
-  constructor(private GameDataService) { }
+  constructor(private GameDataService: GameDataService) { }
 
   ngOnInit() {
   }
