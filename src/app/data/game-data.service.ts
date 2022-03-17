@@ -2,7 +2,8 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Game } from '../model/game';
-import { Interface } from '../model/interface';
+import { GameInterface } from '../model/game_interface';
+
 
 @Injectable()
 export class GameDataService {
@@ -27,7 +28,7 @@ export class GameDataService {
     return this.http.get(this.gameUrl, {headers: this.header, params: this.gameParams})
   }
 
-  getArtwork(): Observable<Interface> {
-    return this.http.get<Interface>(this.artworkUrl, {headers: this.header, params: this.artworkParams})
+  getArtwork(): Observable<GameInterface> {
+    return this.http.get<GameInterface>(this.artworkUrl, {headers: this.header, params: this.artworkParams})
   }
 }
