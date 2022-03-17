@@ -1,4 +1,4 @@
 export interface GameInterface {
-  id: number;
-  name: string;
+  id: number,
+  name: string,
 }
