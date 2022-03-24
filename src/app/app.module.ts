@@ -7,9 +7,10 @@ import { HelloComponent } from './hello.component';
 import { QuizComponent } from './components/quiz/quiz.component';
 import { GameDataService } from './data/game-data.service';
 import { HttpClientModule } from '@angular/common/http';
+import { RoutingModule } from './routing/routing.module';
 
 @NgModule({
-  imports: [BrowserModule, FormsModule, HttpClientModule],
+  imports: [BrowserModule, FormsModule, HttpClientModule, RoutingModule],
   declarations: [AppComponent, HelloComponent, QuizComponent],
   bootstrap: [AppComponent],
   providers: [GameDataService],
