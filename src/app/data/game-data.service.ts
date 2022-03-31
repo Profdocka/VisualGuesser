@@ -30,7 +30,7 @@ export class GameDataService {
     .set('limit', '4');
 
   artworkParams = new HttpParams().set('fields', 'url,game');
-  artworkBody = 'fields *;  where game = 371;';
+  artworkBody = '';
 
   //**  VIDEOSPIELE **//
 
