@@ -1,0 +1,11 @@
+.cropped {
+  width: 600px;
+  height: 600px;
+  overflow: hidden;
+}
+
+.center {
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
