@@ -9,6 +9,7 @@ export class Artwork implements ArtworkInterface {
     this.url = baseArtwork.url;
   }
 
+  //Veränderung der URL, um an eine HD-Version des Artworks zu gelangen
   setUrl() {
     this.url = this.url.replace("t_thumb", "t_original");
   }

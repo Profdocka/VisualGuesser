@@ -8,33 +8,39 @@ import { GameInterface } from '../model/game_interface';
 
 @Injectable()
 export class GameDataService {
+  //Beinhaltet alle Spiele & das dazugehörige Artworks
   gamesList: Game[] = [];
   artworksList: Artwork[] = [];
+
+  //Der erste Eintrag aus dem Game-Array bildet das richtige Spiel für die Runde
   private CorrectGame: any = new Object();
   private CorrectGameArtwork: any = new Object();
-  // WrongGames: Game[] = [];
 
   constructor(private http: HttpClient) {}
 
+  //URLs der entsprechenden Endpointverbindung zur API mit Proxyservervorsatz
   gameUrl =
     'https://cors-anywhere.herokuapp.com/https://api.igdb.com/v4/games/';
   artworkUrl =
     'https://cors-anywhere.herokuapp.com/https://api.igdb.com/v4/artworks';
 
+  //Authentifizierungsheader BLEIBT STARR!
   header = new HttpHeaders()
     .set('Client-ID', '56pmsmf23lb6a8rn0z6t8vvg47r0a2')
     .set('Authorization', 'Bearer ud22j0xr53lb06mep6au7m8mxcogx3');
+
+  //Parameter um nach einem bestimmten Spiel zu suchen
+  //!TODO hier muss für eine zufällige Suche gesorgt werden
   gameParams = new HttpParams()
     .set('fields', 'name')
     .set('search', 'Valorant')
     .set('limit', '4');
 
-  artworkParams = new HttpParams().set('fields', 'url,game');
-  artworkBody = '';
+  // API-Zugriffe nach Aufruf des QuizComponents
 
-  //**  VIDEOSPIELE **//
+  //**  GAMES **//
 
-  //Sendet eine Request an die Videogame-API und liefert ein Observable zurück
+  //GET-Request, welche einen Games-Array zurückliefert
   getData(): Observable<GameInterface[]> {
     return this.http
       .get<GameInterface[]>(this.gameUrl, {
@@ -44,10 +50,6 @@ export class GameDataService {
       .pipe(
         map((games: GameInterface[]) => games.map((game) => new Game(game)))
       );
-  }
-
-  setArtworkBody(id: number) {
-    this.artworkBody = 'fields *; where game =' + id;
   }
 
   getCorrectGame(): Game {
@@ -60,10 +62,11 @@ export class GameDataService {
 
   //**  ARTWORKS **//
 
+  //POST-Request, welche einen Artwork-Array mit einem Objekteintrag zurückliefert
   getArtwork(id: number): Observable<ArtworkInterface[]> {
-    this.artworkBody = 'fields *; where game = ' + id + ';';
+    let artworkBody = 'fields *; where game = ' + id + ';';
     return this.http
-      .post<ArtworkInterface[]>(this.artworkUrl, this.artworkBody, {
+      .post<ArtworkInterface[]>(this.artworkUrl, artworkBody, {
         headers: this.header,
       })
       .pipe(

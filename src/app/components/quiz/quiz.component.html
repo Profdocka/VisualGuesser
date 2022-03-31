@@ -1,18 +1,13 @@
-<p>{{this.PointsService.points}}</p>
+<p>{{ this.PointsService.points }}</p>
 <div id="quiz-space" class="center">
   <div id="testButtons">
-    <button (click)="requestGames()">Game</button>
-    <button (click)="setGameDataServiceCorrectGame()">CorrectGame</button>
-    <button (click)="requestArtwork()">Artwork</button>
-    <button (click)="printOut()">Print</button>
-    <button (click)="printOutRandomNumbers()">Random</button>
+    <button (click)="prepareRound()">Prepare</button>
   </div>
-  <div id="gamePreview" class="center cropped" >
+  <div id="gamePreview" class="center cropped">
     <img
       id="pic"
       src="//images.igdb.com/igdb/image/upload/t_original/sbhgne8waoibdd3kheia.jpg"
     />
-    <h5 id="title">GameTitle</h5>
   </div>
   <div>
     <button id="1"></button>

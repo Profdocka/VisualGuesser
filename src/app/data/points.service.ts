@@ -7,7 +7,6 @@ export class PointsService {
 
   points: number = 1000;
 
-
   addPoints() {
     this.points += 20;
   }

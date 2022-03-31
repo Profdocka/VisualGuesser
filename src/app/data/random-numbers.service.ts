@@ -7,9 +7,10 @@ export class RandomNumbersService {
   randomInt(): number[] {
     var randomNumberArray: number[] = [];
     var check = new Object();
+    var answercount = 4;
 
-    while (randomNumberArray.length < 4) {
-      var random = Math.round(1 + 3 * Math.random());
+    while (randomNumberArray.length < answercount) {
+      var random = Math.round(1 + (answercount-1) * Math.random());
       if (!check[random]) {
         randomNumberArray.push(random);
         check[random] = true;

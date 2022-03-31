@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Game } from '../../model/game';
 import { GameDataService } from '../../data/game-data.service';
-import { Artwork } from '../../model/artwork';
 import { RandomNumbersService } from '../../data/random-numbers.service';
 import { PointsService } from '../../data/points.service';
 
@@ -18,17 +15,22 @@ export class QuizComponent implements OnInit {
     public PointsService: PointsService
   ) {}
 
-
-  add() {
-   this.addPoints();
-  }
-
+  //Servicezugriff Points
+/*
   addPoints() {
     console.log(this.GameDataService.gamesList[0]);
     console.log(this.RandomNumberService);
     console.log(this.PointsService.points);
   }
 
+  wrongPick() {
+    console.log("WRONG")
+  }
+*/
+
+  //Servicezugriff Games & Artworks
+
+  // GAMES //
   async requestGames() {
     await this.GameDataService.getData()
       .toPromise()
@@ -49,8 +51,11 @@ export class QuizComponent implements OnInit {
     console.log(this.GameDataService.getCorrectGame());
   }
 
+  // ARTWORKS //
   async requestArtwork() {
-    await this.GameDataService.getArtwork(this.GameDataService.getCorrectGame().id)
+    await this.GameDataService.getArtwork(
+      this.GameDataService.getCorrectGame().id
+    )
       .toPromise()
       .then((items) => {
         for (let keys in items) {
@@ -68,54 +73,42 @@ export class QuizComponent implements OnInit {
         this.GameDataService.artworksList[0]
       );
       this.GameDataService.getCorrectGameArtwork().setUrl();
-      console.log("URL:" +  this.GameDataService.getCorrectGameArtwork().url)
+      console.log('URL:' + this.GameDataService.getCorrectGameArtwork().url);
     }
     console.log(this.GameDataService.getCorrectGameArtwork());
-    console.log(this.PointsService.points)
+    console.log(this.PointsService.points);
   }
 
+  // Anzeige des Artworks
   printOut() {
-    //console.log(Math.floor(Math.random() * 3));
-    //console.log(this.GameDataService.gamesList);
-    //console.log(this.GameDataService.artworksList);
     let pic = document.getElementById('pic');
-    let title = document.getElementById('title');
-    // pic.setAttribute("src", "https://images.igdb.com/igdb/image/upload/t_original/arz9r.jpg");
     pic.setAttribute('src', this.GameDataService.getCorrectGameArtwork().url);
     console.log(
       this.GameDataService.getCorrectGame(),
       this.GameDataService.getCorrectGameArtwork()
     );
-    title.innerHTML = this.GameDataService.getCorrectGame().name;
   }
 
-  /*  printOutArtwork() {
-    
-  }
-*/
-
-
-
-  wrongPick() {
-    console.log("WRONG")
-  }
-
-  async printOutRandomNumbers() {
+  async prepareRound() {
+    //Spiel und Artwork für die Quizrunde vorbereitet
     console.log('start');
     await this.requestGames();
     console.log('Games finished');
     await this.requestArtwork();
     console.log('Artworks finished');
-    await this.printOut();
+    this.printOut();
     console.log('PrintOut finished');
+
+    //Knopfvariablen bekommen in einer zufälligen Reigenfolge einen realen Knopf zugewiesen
     let order = this.RandomNumberService.randomInt();
-    //console.log(order);
     let answerButton1 = document.getElementById(order[0].toString());
     let answerButton2 = document.getElementById(order[1].toString());
     let answerButton3 = document.getElementById(order[2].toString());
     let answerButton4 = document.getElementById(order[3].toString());
+
+    //Antwortmöglichkeiten den verschiedenen Knopfvariablen zuweisen | Der erste beinhaltet die richtige Antwort
     answerButton1.innerHTML = this.GameDataService.gamesList[0].name;
-    answerButton1.addEventListener("click", () => {
+    answerButton1.addEventListener('click', () => {
       this.PointsService.addPoints();
     });
     answerButton2.innerHTML = this.GameDataService.gamesList[1].name;
@@ -123,6 +116,5 @@ export class QuizComponent implements OnInit {
     answerButton4.innerHTML = this.GameDataService.gamesList[3].name;
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 }
