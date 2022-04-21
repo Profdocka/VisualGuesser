@@ -5,10 +5,15 @@ import { Artwork } from '../model/artwork';
 import { ArtworkInterface } from '../model/artwork-interface';
 import { Game } from '../model/game';
 import { GameInterface } from '../model/game_interface';
+import { IdsService } from './ids.service';
+import { RandomNumbersService } from './random-numbers.service';
 
 @Injectable()
 export class GameDataService {
   //Beinhaltet alle Spiele & das dazugehörige Artworks
+
+  idArray: number[] = [];
+  idString: string = '';
   gamesList: Game[] = [];
   artworksList: Artwork[] = [];
 
@@ -16,7 +21,33 @@ export class GameDataService {
   private CorrectGame: any = new Object();
   private CorrectGameArtwork: any = new Object();
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private RandomNumberService: RandomNumbersService,
+    private IDsService: IdsService
+  ) {}
+
+  refreshIDsArray() {
+    this.idArray = this.RandomNumberService.randomInt((
+      this.IDsService.idCollection.length-1),4
+    );
+    this.idString =
+      '(' +
+      this.IDsService.idCollection[this.idArray[0]] +
+      ',' +
+      this.IDsService.idCollection[this.idArray[1]] +
+      ',' +
+      this.IDsService.idCollection[this.idArray[2]] +
+      ',' +
+      this.IDsService.idCollection[this.idArray[3]] +
+      ')';
+      console.log(this.idString);
+      console.log("Erster Eintrag ID-Reihenfolge:")
+      console.log(this.idArray[0]);
+      console.log("Erster Eintrag ID:")
+      console.log(this.IDsService.idCollection[0]);
+
+  }
 
   //URLs der entsprechenden Endpointverbindung zur API mit Proxyservervorsatz
   gameUrl =
@@ -27,13 +58,13 @@ export class GameDataService {
   //Authentifizierungsheader BLEIBT STARR!
   header = new HttpHeaders()
     .set('Client-ID', '56pmsmf23lb6a8rn0z6t8vvg47r0a2')
-    .set('Authorization', 'Bearer ud22j0xr53lb06mep6au7m8mxcogx3');
+    .set('Authorization', 'Bearer 4ghbzkgtzlzbhk0txgyrvgeer4ortt');
 
   //Parameter um nach einem bestimmten Spiel zu suchen
   //!TODO hier muss für eine zufällige Suche gesorgt werden
   gameParams = new HttpParams()
-    .set('fields', 'name')
-    .set('search', 'Valorant')
+    .set('fields', 'name, artworks.*')
+    .set('where id', '(731,121,126459,1020)')
     .set('limit', '4');
 
   // API-Zugriffe nach Aufruf des QuizComponents
@@ -42,10 +73,11 @@ export class GameDataService {
 
   //GET-Request, welche einen Games-Array zurückliefert
   getData(): Observable<GameInterface[]> {
+    let gameBody = 'fields name, artworks.*; where id=' + this.idString + ';limit 4;'
     return this.http
-      .get<GameInterface[]>(this.gameUrl, {
+      .post<GameInterface[]>(this.gameUrl, gameBody,{
         headers: this.header,
-        params: this.gameParams,
+       // params: this.gameParams,
       })
       .pipe(
         map((games: GameInterface[]) => games.map((game) => new Game(game)))

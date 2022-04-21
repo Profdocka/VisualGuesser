@@ -10,4 +10,8 @@ export class PointsService {
   addPoints() {
     this.points += 20;
   }
+
+  deductPoints() {
+    this.points -= 5;
+  }
 }

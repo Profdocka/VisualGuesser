@@ -10,11 +10,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { RoutingModule } from './routing/routing.module';
 import { RandomNumbersService } from './data/random-numbers.service';
 import { PointsService } from './data/points.service';
+import { IdsService } from './data/ids.service';
 
 @NgModule({
   imports: [BrowserModule, FormsModule, HttpClientModule, RoutingModule],
   declarations: [AppComponent, HelloComponent, QuizComponent],
   bootstrap: [AppComponent],
-  providers: [GameDataService, RandomNumbersService, PointsService],
+  providers: [GameDataService, RandomNumbersService, PointsService, IdsService],
 })
 export class AppModule {}
