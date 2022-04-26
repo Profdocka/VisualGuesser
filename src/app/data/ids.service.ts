@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class IdsService {
 
+  //IDs zu Videospieleinträgen der Internet Videogame Database (IGDB)
   public idCollection = new Array(
     0, //PLACEHOLDER
     434, //Red Dead Redemption

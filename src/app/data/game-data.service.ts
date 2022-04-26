@@ -27,6 +27,7 @@ export class GameDataService {
     private IDsService: IdsService
   ) {}
 
+  //Ein erzeugter String, welcher vier zufällige IDs aus dem IDsService nimmt. Dieser String wird für die Request zur API benötigt
   refreshIDsArray() {
     this.idArray = this.RandomNumberService.randomInt((
       this.IDsService.idCollection.length-1),4
@@ -41,12 +42,6 @@ export class GameDataService {
       ',' +
       this.IDsService.idCollection[this.idArray[3]] +
       ')';
-      console.log(this.idString);
-      console.log("Erster Eintrag ID-Reihenfolge:")
-      console.log(this.idArray[0]);
-      console.log("Erster Eintrag ID:")
-      console.log(this.IDsService.idCollection[0]);
-
   }
 
   //URLs der entsprechenden Endpointverbindung zur API mit Proxyservervorsatz
@@ -71,7 +66,7 @@ export class GameDataService {
 
   //**  GAMES **//
 
-  //GET-Request, welche einen Games-Array zurückliefert
+  //POST-Request, welche einen Games-Array zurückliefert
   getData(): Observable<GameInterface[]> {
     let gameBody = 'fields name, artworks.*; where id=' + this.idString + ';limit 4;'
     return this.http

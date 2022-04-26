@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { GameDataService } from '../../data/game-data.service';
 import { RandomNumbersService } from '../../data/random-numbers.service';
 import { PointsService } from '../../data/points.service';
-import { Artwork } from '../../model/artwork';
-import { ArtworkInterface } from '../../model/artwork-interface';
 import { IdsService } from '../../data/ids.service';
 
 @Component({
@@ -19,27 +17,42 @@ export class QuizComponent implements OnInit {
     public IDsService: IdsService
   ) {}
 
-  //Servicezugriff Points
+  public rounds = 0;
 
+  //Funktionen im Zusammenhang mit den Knöpfen//
+
+  afterClick() {
+    this.resetButtonEventListeners();
+    this.colorButtons('green', 'red');
+    setTimeout(() => this.prepareRound(), 5000);
+  }
+
+  //Richtige Antwort fügt 20 Punkte hinzu
   rightAnswer() {
     this.PointsService.addPoints();
-    this.resetButtonEventListeners();
-    this.prepareRound();
+    this.afterClick();
   }
-  /*
 
-  console.log(this.GameDataService.gamesList[0]);
-    console.log(this.RandomNumberService);
-    console.log(this.PointsService.points);
-*/
-
+  //Falsche Antwort zieht 5 Punkte ab
   wrongAnswer() {
     this.PointsService.deductPoints();
-    this.resetButtonEventListeners();
-    this.prepareRound();
+    this.afterClick();
   }
 
-  //Entfernt von allen Knöpfen den Event Listener
+  //Färbt die Hintergrundfarbe der Knöpfe entsprechend nach richtiger oder falscher Antwortmöglichkeit ein
+  colorButtons(colrRight: string, colrWrong: string) {
+    document
+      .getElementById(this.RandomNumberService.randomOrder[0])
+      .setAttribute('style', 'background-color:' + colrRight);
+
+    for (let i = 1; i <= 3; i++) {
+      document
+        .getElementById(this.RandomNumberService.randomOrder[i])
+        .setAttribute('style', 'background-color:' + colrWrong);
+    }
+  }
+
+  //Entfernt von allen Knöpfen den Event Listener, indem er das Knopfelement dupliziert ohne den Listener und das Original mit dieser Kopie austauscht
   resetButtonEventListeners() {
     let button1 = document.getElementById(
         this.RandomNumberService.randomOrder[0]
@@ -147,6 +160,11 @@ export class QuizComponent implements OnInit {
   }
 
   async prepareRound() {
+    //Hintergrundfarbe der Knöpfe wird ab Abschluss der ersten Runde zurückgesetzt
+    if (this.rounds > 0) {
+      this.colorButtons('', '');
+    }
+
     //Spiel und Artwork für die Quizrunde vorbereitet
     console.log('start');
     await this.requestGames();
@@ -194,8 +212,10 @@ export class QuizComponent implements OnInit {
       ].name;
     answerButton4.addEventListener('click', () => this.wrongAnswer(), true);
 
+    //Listenarrays werden zurückgesetzt für nächste Runde und Rundenanzahl wird erhöht
     this.GameDataService.gamesList = [];
     this.GameDataService.artworksList = [];
+    this.rounds++;
   }
 
   ngOnInit() {}
