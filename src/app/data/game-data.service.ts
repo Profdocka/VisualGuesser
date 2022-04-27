@@ -45,6 +45,7 @@ export class GameDataService {
   }
 
   //URLs der entsprechenden Endpointverbindung zur API mit Proxyservervorsatz
+  //Einer dieser Links muss in einem externen Browsertab geöffnet werden und der Knopf auf der externen Website gedrückt werden, damit die Anwendung die Berechtigung bekommt
   gameUrl =
     'https://cors-anywhere.herokuapp.com/https://api.igdb.com/v4/games/';
   artworkUrl =
