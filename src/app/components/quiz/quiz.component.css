@@ -18,6 +18,21 @@
 
 .buttons {
   display: flex;
-  margin: 2em;
+  padding: 5px;
+  margin: 2px;
+}
+
+.buttonsingle {
+  margin-right: 5px;
+}
+
+button {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: large;
+}
+
+p {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: x-large;
 }
 

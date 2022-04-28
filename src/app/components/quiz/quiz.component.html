@@ -1,22 +1,23 @@
-<p class="points">{{ this.PointsService.points }}</p>
+<p class="points">Punkte: {{ this.PointsService.points }}</p>
 <div id="quiz-space" class="center">
   <div id="testButtons">
-    <button (click)="prepareRound()">Prepare</button>
+    <button class="buttons btn btn-outline-primary" (click)="prepareRound()">Start</button>
   </div>
-  <div id="gamePreview" class="center cropped">
+  <div id="gamePreview" class="center cropped rounded">
     <img
       id="pic"
-      src="//images.igdb.com/igdb/image/upload/t_original/sbhgne8waoibdd3kheia.jpg"
+      src="https://i.postimg.cc/FzzbynF1/3e7f5042-f9ba-4967-9926-0c775a31f8ad.png"
+      class="rounded"
     />
   </div>
   <div id="answerButtons">
     <div id="answerButtonsRow1" class="buttons">
-      <button id="1"></button>
-      <button id="2"></button>
+      <button id="1" class="btn btn-outline-primary buttonsingle">VisualGuesser</button>
+      <button id="2" class="btn btn-outline-primary">VisualGuesser</button>
     </div>
     <div id="answerButtonsRow2" class="buttons">
-      <button id="3"></button>
-      <button id="4"></button>
+      <button id="3" class="btn btn-outline-primary buttonsingle">VisualGuesser</button>
+      <button id="4" class="btn btn-outline-primary">VisualGuesser</button>
     </div>
   </div>
 </div>
