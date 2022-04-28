@@ -229,7 +229,7 @@ export class QuizComponent implements OnInit {
       console.log("//// Programmablauf abgebrochen ////")
     }
     else {
-      alert("Sie haben das Pensum an Requests des Proxys aufgebraucht. Warten Sie 30min.")
+      alert("Sie haben das Pensum an Requests des Proxys aufgebraucht. Warten Sie ca. 30min.")
       console.log("//// Programmablauf abgebrochen ////")
     }
   }
