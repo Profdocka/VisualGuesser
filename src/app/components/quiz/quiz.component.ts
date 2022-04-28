@@ -24,7 +24,7 @@ export class QuizComponent implements OnInit {
   afterClick() {
     this.resetButtonEventListeners();
     this.colorButtons('green', 'red');
-    setTimeout(() => this.prepareRound(), 5000);
+    setTimeout(() => this.prepareRound(), 3000);
   }
 
   //Richtige Antwort fügt 20 Punkte hinzu
