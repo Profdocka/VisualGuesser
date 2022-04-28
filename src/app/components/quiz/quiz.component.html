@@ -1,7 +1,9 @@
 <p class="points">Punkte: {{ this.PointsService.points }}</p>
-<div id="quiz-space" class="center background-color:beige">
-  <div id="testButtons">
+<div id="quiz-space" class="center" style="background-color:#ebdef0 ">
+  <div *ngIf="firstRound()" id="testButtons" class="center">
     <button class="buttons btn btn-outline-primary" (click)="prepareRound()">Start</button>
+    <p>Vor erstem Start beim Proxy registrieren:</p>
+    <a href="https://cors-anywhere.herokuapp.com/https://api.igdb.com/v4/games/" target="_blank">Proxy</a>
   </div>
   <div id="gamePreview" class="center cropped rounded">
     <img

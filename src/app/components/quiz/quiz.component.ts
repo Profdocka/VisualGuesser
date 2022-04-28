@@ -17,7 +17,17 @@ export class QuizComponent implements OnInit {
     public IDsService: IdsService
   ) {}
 
+  //Spielrunden und eine Methode zur Ermittlung, ob es sich um die erste Runde handelt
   public rounds = 0;
+
+  firstRound() {
+    if(this.rounds == 0) {
+      return true;
+    }
+    else {
+      return false
+    }
+  }
 
   //Funktionen im Zusammenhang mit den Knöpfen//
 
@@ -102,10 +112,6 @@ export class QuizComponent implements OnInit {
         this.GameDataService.gamesList.length,
         4
       );
-
-    console.log('GameListOrder: ');
-    console.log('');
-
     if (
       this.GameDataService.gamesList[
         this.RandomNumberService.randomGameListOrder[0] - 1
@@ -146,7 +152,6 @@ export class QuizComponent implements OnInit {
       console.log('URL: ' + this.GameDataService.getCorrectGameArtwork().url);
     }
     console.log(this.GameDataService.getCorrectGameArtwork());
-    console.log(this.PointsService.points);
   }
 
   // Anzeige des Artworks
@@ -166,13 +171,15 @@ export class QuizComponent implements OnInit {
     }
 
     //Spiel und Artwork für die Quizrunde vorbereitet
-    console.log('start');
+    console.log('/// start ///');
+    try {
     await this.requestGames();
     console.log('Games finished');
     await this.requestArtwork();
     console.log('Artworks finished');
     this.printOut();
     console.log('PrintOut finished');
+    
 
     //Knopfvariablen bekommen in einer zufälligen Reigenfolge einen realen Knopf zugewiesen
     let order = this.RandomNumberService.randomInt(4, 4);
@@ -216,6 +223,16 @@ export class QuizComponent implements OnInit {
     this.GameDataService.gamesList = [];
     this.GameDataService.artworksList = [];
     this.rounds++;
+  } catch(Error) {
+    if(this.firstRound()) {
+      alert("Bitte Anwendung beim Proxy registrieren!")
+      console.log("//// Programmablauf abgebrochen ////")
+    }
+    else {
+      alert("Sie haben das Pensum an Requests des Proxys aufgebraucht. Warten Sie 30min.")
+      console.log("//// Programmablauf abgebrochen ////")
+    }
+  }
   }
 
   ngOnInit() {}
