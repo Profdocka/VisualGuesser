@@ -11,10 +11,11 @@ import { RoutingModule } from './routing/routing.module';
 import { RandomNumbersService } from './data/random-numbers.service';
 import { PointsService } from './data/points.service';
 import { IdsService } from './data/ids.service';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   imports: [BrowserModule, FormsModule, HttpClientModule, RoutingModule],
-  declarations: [AppComponent, HelloComponent, QuizComponent],
+  declarations: [AppComponent, HelloComponent, QuizComponent, HeaderComponent],
   bootstrap: [AppComponent],
   providers: [GameDataService, RandomNumbersService, PointsService, IdsService],
 })

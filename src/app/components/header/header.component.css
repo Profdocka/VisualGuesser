@@ -1,0 +1,12 @@
+header {
+  border: 5px outset #f3bcf8;
+  text-align: center; 
+  width: auto; 
+  border-radius: 15px;
+  font-size: xx-large;
+  background-color: #f3bcf8;
+}
+
+p {
+  font-size: x-large;
+}
