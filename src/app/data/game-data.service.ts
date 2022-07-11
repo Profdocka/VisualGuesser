@@ -29,8 +29,9 @@ export class GameDataService {
 
   //Ein erzeugter String, welcher vier zufällige IDs aus dem IDsService nimmt. Dieser String wird für die Request zur API benötigt
   refreshIDsArray() {
-    this.idArray = this.RandomNumberService.randomInt((
-      this.IDsService.idCollection.length-1),4
+    this.idArray = this.RandomNumberService.randomInt(
+      this.IDsService.idCollection.length - 1,
+      4
     );
     this.idString =
       '(' +
@@ -54,7 +55,7 @@ export class GameDataService {
   //Authentifizierungsheader BLEIBT STARR!
   header = new HttpHeaders()
     .set('Client-ID', '56pmsmf23lb6a8rn0z6t8vvg47r0a2')
-    .set('Authorization', 'Bearer 4ghbzkgtzlzbhk0txgyrvgeer4ortt');
+    .set('Authorization', 'Bearer achqc1h76td3bumq9m4m9s0loh2978');
 
   //Parameter um nach einem bestimmten Spiel zu suchen
   //!TODO hier muss für eine zufällige Suche gesorgt werden
@@ -69,11 +70,12 @@ export class GameDataService {
 
   //POST-Request, welche einen Games-Array zurückliefert
   getData(): Observable<GameInterface[]> {
-    let gameBody = 'fields name, artworks.*; where id=' + this.idString + ';limit 4;'
+    let gameBody =
+      'fields name, artworks.*; where id=' + this.idString + ';limit 4;';
     return this.http
-      .post<GameInterface[]>(this.gameUrl, gameBody,{
+      .post<GameInterface[]>(this.gameUrl, gameBody, {
         headers: this.header,
-       // params: this.gameParams,
+        // params: this.gameParams,
       })
       .pipe(
         map((games: GameInterface[]) => games.map((game) => new Game(game)))
